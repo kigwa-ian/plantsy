@@ -1,13 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Search({ plantSearch }) {
-  const [formSearch, setFormSearch] = useState("")
-
-  function searchForPlant(e) {
-    setFormSearch(e)
-    plantSearch(formSearch)
-  }
-
+function Search({ setPlantSearch }) {
   return (
     <div className="searchbar">
       <label htmlFor="search">Search Plants:</label>
@@ -15,7 +8,7 @@ function Search({ plantSearch }) {
         type="text"
         id="search"
         placeholder="Type a name to search..."
-        onChange={(e) => searchForPlant(e.target.value)}
+        onChange={(e) => setPlantSearch(e.target.value)}
       />
     </div>
   );

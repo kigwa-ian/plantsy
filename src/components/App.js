@@ -14,12 +14,11 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <PlantPage plants={plants} addNewPlant={addNewPlant} soldOut={soldOut} plantSearch={plantSearch} />
+      <PlantPage plants={plants} addNewPlant={addNewPlant} soldOut={soldOut} />
     </div>
   )
 
   function addNewPlant(newPlant) {
-    setPlants([...plants, newPlant])
     fetch(API, {
       method: "POST",
       headers: {
@@ -27,18 +26,14 @@ function App() {
       },
       body: JSON.stringify(newPlant),
     })
+    .then(res => res.json())
+    .then(json => setPlants([...plants, json]))
   }
 
   function soldOut(plant) {
     const newPlantList = plants.map(p => p.id !== plant.id ? p : { ...p, sold: true })
     setPlants(newPlantList)
   }
-
-  function plantSearch(formSearch) {
-    const filteredPlants = plants.filter((p) => p.name.includes(formSearch))
-    setPlants(filteredPlants)
-  }
-
 }
 
 export default App;
